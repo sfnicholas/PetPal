@@ -1,0 +1,10 @@
+setuptools
+Django
+django-filter
+djangorestframework
+djangorestframework-jwt
+djangorestframework-simplejwt
+djoser
+django-cors-headers
+Pillow
+whitenoise
