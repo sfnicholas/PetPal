@@ -8,3 +8,5 @@ djoser
 django-cors-headers
 Pillow
 whitenoise
+gunicorn
+
