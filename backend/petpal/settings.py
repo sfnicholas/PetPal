@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-q4%r&b%!m7+jtj09xz8(=2m16!9b61!gfp*vq*5**88c@@cn*@
 DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['.ngrok-free.app', 'localhost', '127.0.0.1', '18.191.63.42']
+ALLOWED_HOSTS = ['petpal-jvw2.onrender.com', 'localhost', '127.0.0.1'] #'18.191.63.42'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
