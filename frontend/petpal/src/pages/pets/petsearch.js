@@ -27,26 +27,28 @@ const PetSearch = () => {
     };
 
     const getCoordinatesForAddress = async (address) => {
-      const apiKey = 'YOUR_GOOGLE_MAPS_API_KEY'; // Replace with your API key
-      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyAorpVO1oTNjz6WTYBDGNjjo2rJea9wa4w&q`;
-    
+      const apiKey = "YOUR_GOOGLE_MAPS_API_KEY"; // Replace with your API key
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        address
+      )}&key=AIzaSyAorpVO1oTNjz6WTYBDGNjjo2rJea9wa4w&q`;
+
       try {
         const response = await axios.get(url);
         console.log("API Response for address:", address, response.data); // Log the entire API response
-    
-        if (!response.data || response.data.status === 'ZERO_RESULTS') {
-          console.error('No results found for address:', address);
+
+        if (!response.data || response.data.status === "ZERO_RESULTS") {
+          console.error("No results found for address:", address);
           return null; // Return null if no coordinates found
         }
-    
+
         return response.data.results[0].geometry.location;
       } catch (error) {
-        console.error('Error fetching coordinates:', error);
+        console.error("Error fetching coordinates:", error);
         return null; // Return null in case of error
       }
     };
 
-    if ('geolocation' in navigator) {
+    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -55,11 +57,11 @@ const PetSearch = () => {
           }
         },
         (error) => {
-          console.error('Error getting user location:', error);
+          console.error("Error getting user location:", error);
         }
       );
     } else {
-      console.error('Geolocation is not available in this browser.');
+      console.error("Geolocation is not available in this browser.");
     }
 
     const fetchPets = async () => {
@@ -69,37 +71,44 @@ const PetSearch = () => {
           page: currentPage,
           itemsPerPage: itemsPerPage,
         };
-    
+
         const response = await axios.get(link, { params });
         let fetchedPets = response.data.results;
-    
+
         for (let i = 0; i < fetchedPets.length; i++) {
           const pet = fetchedPets[i];
           const shelterId = pet.shelter;
-    
+
           if (shelterId) {
-      
             const shelterEndpoint = `${BACKEND_URL}/shelter/id/${shelterId}`;
             const shelterResponse = await axios.get(shelterEndpoint);
             const shelterAddress = shelterResponse.data.address;
-            
+
             const petWithDistance = { ...pet };
-    
+
             if (shelterAddress) {
-              const shelterLocation = await getCoordinatesForAddress(shelterAddress);
+              const shelterLocation = await getCoordinatesForAddress(
+                shelterAddress
+              );
               console.log("shelterLocation", shelterLocation);
               if (shelterLocation) {
                 console.log("shelterLocation", shelterLocation.lng);
                 console.log("userlocatoin", userLocation);
-                petWithDistance.distance = calculateDistance(userLocation, shelterLocation);
-                console.log("petWithDistance.distance", petWithDistance.distance);
+                petWithDistance.distance = calculateDistance(
+                  userLocation,
+                  shelterLocation
+                );
+                console.log(
+                  "petWithDistance.distance",
+                  petWithDistance.distance
+                );
               } else {
                 petWithDistance.distance = Infinity;
               }
             } else {
               petWithDistance.distance = Infinity;
             }
-    
+
             fetchedPets[i] = petWithDistance;
           } else {
             pet.distance = Infinity;
@@ -107,16 +116,17 @@ const PetSearch = () => {
         }
 
         fetchedPets = fetchedPets.sort((a, b) => a.distance - b.distance);
-    
+
         console.log("Fetched Pets:", fetchedPets);
         setPets(fetchedPets);
-        console.log(pets.distance)
-
+        console.log(pets.distance);
       } catch (error) {
-        console.error("Error fetching pets:", error.response?.data || "An error occurred");
+        console.error(
+          "Error fetching pets:",
+          error.response?.data || "An error occurred"
+        );
       }
     };
-    
 
     const fetchShelters = async () => {
       try {
@@ -151,28 +161,29 @@ const PetSearch = () => {
 
   function calculateDistance(userLocation, shelterLocation) {
     const toRadians = (degrees) => (degrees * Math.PI) / 180;
-  
+
     const lat1 = userLocation.latitude;
     const lon1 = userLocation.longitude;
     const lat2 = shelterLocation.lat;
     const lon2 = shelterLocation.lng;
-  
+
     const earthRadiusKm = 6371; // Radius of the Earth in kilometers
-  
+
     const dLat = toRadians(lat2 - lat1);
     const dLon = toRadians(lon2 - lon1);
-  
+
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  
+      Math.cos(toRadians(lat1)) *
+        Math.cos(toRadians(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distanceKm = earthRadiusKm * c;
-  
+
     return distanceKm;
   }
-  
-
 
   const fetchPetsBasedOnSearch = async () => {
     try {
@@ -290,12 +301,12 @@ const PetSearch = () => {
           </div>
         </div>
       </div>
-      <div class="container mb-2 pb-5 biggap">
-        <div class="card">
-          <div class="card-header bg-light text-dark text-center pt-3">
-            <h1 class="fw-light">Search Results</h1>
-            <div class="row mt-3">
-              <div class="col-md-4">
+      <div className="container mb-2 pb-5 biggap">
+        <div className="card">
+          <div className="card-header bg-light text-dark text-center pt-3">
+            <h1 className="fw-light">Search Results</h1>
+            <div className="row mt-3">
+              <div className="col-md-4">
                 <label for="filterType">Filter by:</label>
                 <select
                   className="form-select"
@@ -309,7 +320,7 @@ const PetSearch = () => {
                   <option value="shelter">Shelter</option>
                 </select>
               </div>
-              <div class="col-md-4">
+              <div className="col-md-4">
                 <label for="filterValue">{`${
                   filterType.charAt(0).toUpperCase() + filterType.slice(1)
                 } value:`}</label>
@@ -328,7 +339,7 @@ const PetSearch = () => {
                   ))}
                 </select>
               </div>
-              <div class="col-md-4">
+              <div className="col-md-4">
                 <label for="sort">Sort by:</label>
                 <select
                   className="form-select"
@@ -344,28 +355,26 @@ const PetSearch = () => {
             </div>
           </div>
           <div className="row mt-5">
-  {pets.map((pet) => (
-    <div key={pet.id} className="col-md-3">
-      <Link to={`/petdetails/${pet.id}`}>
-        <div className="card cardsearch my-2">
-          <img
-            src={pet.image1 || "/path/to/default/image"}
-            className="card-img-top"
-            alt={pet.name}
-          />
-          <div className="card-body text-center">
-            <h5 className="card-title">{pet.name}</h5>
-            {pet.distance !== Infinity && (
-              <p className="card-text">
-                Distance: {pet.distance} km
-              </p>
-            )}
+            {pets.map((pet) => (
+              <div key={pet.id} className="col-md-3">
+                <Link to={`/petdetails/${pet.id}`}>
+                  <div className="card cardsearch my-2">
+                    <img
+                      src={pet.image1 || "/path/to/default/image"}
+                      className="card-img-top"
+                      alt={pet.name}
+                    />
+                    <div className="card-body text-center">
+                      <h5 className="card-title">{pet.name}</h5>
+                      {pet.distance !== Infinity && (
+                        <p className="card-text">Distance: {pet.distance} km</p>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
           </div>
-        </div>
-      </Link>
-    </div>
-  ))}
-</div>
           <div className="d-flex justify-content-center">
             <button
               className="btn btn-outline-secondary me-2 mb-5"

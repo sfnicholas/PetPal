@@ -75,60 +75,64 @@ const PetDetails = () => {
     <div className="container-fluid page-container bg-light">
       {loggedIn === false ? <Navbar /> : <AltNavbar />}
       <div className="container mt-4">
-        <div class="row mb-4">
-          <div class="col-lg-3 mb-3">
-            <div class="card shadow mb-3">
-              <div class="card-body">
-                <h1 class="mb-4">
+        <div className="row mb-4">
+          <div className="col-lg-3 mb-3">
+            <div className="card shadow mb-3">
+              <div className="card-body">
+                <h1 className="mb-4">
                   {name}
-                  <h4 class="mt-3">
-                    <span class="mr-0">Status: </span>
-                    <span class="badge rounded-pill bg-success">{status}!</span>
+                  <h4 className="mt-3">
+                    <span className="mr-0">Status: </span>
+                    <span className="badge rounded-pill bg-success">
+                      {status}!
+                    </span>
                   </h4>
                 </h1>
-                <p class="fs-5">Pet ID: {id}</p>
-                <p class="fs-5">Species: {species}</p>
-                <p class="fs-5">Breed: {breed}</p>
-                <p class="fs-5">Age: {age}</p>
-                <p class="fs-5">Gender: {gender === "f" ? "Female" : "Male"}</p>
-                <p class="fs-5">Size: {size}</p>
+                <p className="fs-5">Pet ID: {id}</p>
+                <p className="fs-5">Species: {species}</p>
+                <p className="fs-5">Breed: {breed}</p>
+                <p className="fs-5">Age: {age}</p>
+                <p className="fs-5">
+                  Gender: {gender === "f" ? "Female" : "Male"}
+                </p>
+                <p className="fs-5">Size: {size}</p>
               </div>
             </div>
 
-            <div class="card shadow">
-              <div class="card-body">
-                <h2 class="mb-3">Description</h2>
-                <p class="fs-5">{specialNeeds}</p>
+            <div className="card shadow">
+              <div className="card-body">
+                <h2 className="mb-3">Description</h2>
+                <p className="fs-5">{specialNeeds}</p>
               </div>
             </div>
           </div>
-          <div class="col-lg-5 mb-3">
+          <div className="col-lg-5 mb-3">
             <img
               src={image1}
               alt={`${name}`}
-              class="detail-page-main-image h-100 w-100"
+              className="detail-page-main-image h-100 w-100"
             />
           </div>
 
-          <div class="col-lg-4 mb-3">
+          <div className="col-lg-4 mb-3">
             <img
               // src="../../Pictures//Icons/shelter_logo.png"
               src={avatar}
               alt="Shelter Logo"
-              class="img-fluid petdetail-shelter-image"
+              className="img-fluid petdetail-shelter-image"
             />
 
-            <div class="card shadow">
-              <div class="card-body">
-                <h2 class="card-title">Adoption Information</h2>
-                <p class="fs-5">
+            <div className="card shadow">
+              <div className="card-body">
+                <h2 className="card-title">Adoption Information</h2>
+                <p className="fs-5">
                   <strong>Adoption Fee:</strong> ${adoption_fee || 0}
                 </p>
-                <p class="fs-5">
+                <p className="fs-5">
                   <strong>Adoption Process:</strong> Submit our online form; our
                   team will review and reach out for a quick meet-and-greet.
                 </p>
-                <p class="fs-5">
+                <p className="fs-5">
                   <strong>Shelter Name: </strong>
                   <a href="../Shelter/shelterdetail.html">{username}</a>|{" "}
                   <span>Email: </span>
@@ -138,7 +142,7 @@ const PetDetails = () => {
 
                 <Link
                   to="/application/create"
-                  class="btn btn-primary btn-block"
+                  className="btn btn-primary btn-block"
                 >
                   Adopt Me
                 </Link>
@@ -146,13 +150,13 @@ const PetDetails = () => {
             </div>
           </div>
         </div>
-        <div class="card shadow mb-5">
-          <div class="card-body">
-            <div class="container mt-3">
-              <ul class="nav nav-tabs h5" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
+        <div className="card shadow mb-5">
+          <div className="card-body">
+            <div className="container mt-3">
+              <ul className="nav nav-tabs h5" id="myTab" role="tablist">
+                <li className="nav-item" role="presentation">
                   <a
-                    class="nav-link active"
+                    className="nav-link active"
                     id="medical-history-tab"
                     data-bs-toggle="tab"
                     href="#medical-history"
@@ -163,9 +167,9 @@ const PetDetails = () => {
                     Medical History
                   </a>
                 </li>
-                <li class="nav-item h5" role="presentation">
+                <li className="nav-item h5" role="presentation">
                   <a
-                    class="nav-link"
+                    className="nav-link"
                     id="behavior-tab"
                     data-bs-toggle="tab"
                     href="#behavior"
@@ -176,9 +180,9 @@ const PetDetails = () => {
                     Behavior
                   </a>
                 </li>
-                <li class="nav-item h5" role="presentation">
+                <li className="nav-item h5" role="presentation">
                   <a
-                    class="nav-link"
+                    className="nav-link"
                     id="special-needs-tab"
                     data-bs-toggle="tab"
                     href="#special-needs"
@@ -190,52 +194,52 @@ const PetDetails = () => {
                   </a>
                 </li>
               </ul>
-              <div class="tab-content mt-3" id="myTabContent">
+              <div className="tab-content mt-3" id="myTabContent">
                 <div
-                  class="tab-pane fade show active"
+                  className="tab-pane fade show active"
                   id="medical-history"
                   role="tabpanel"
                   aria-labelledby="medical-history-tab"
                 >
-                  <p class="fs-5">{medicalHistory}</p>
+                  <p className="fs-5">{medicalHistory}</p>
                 </div>
                 <div
-                  class="tab-pane fade"
+                  className="tab-pane fade"
                   id="behavior"
                   role="tabpanel"
                   aria-labelledby="behavior-tab"
                 >
-                  <p class="fs-5">{behavior}</p>
+                  <p className="fs-5">{behavior}</p>
                 </div>
                 <div
-                  class="tab-pane fade"
+                  className="tab-pane fade"
                   id="special-needs"
                   role="tabpanel"
                   aria-labelledby="special-needs-tab"
                 >
-                  <p class="fs-5">{specialNeeds}</p>
+                  <p className="fs-5">{specialNeeds}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="row mb-5">
-          <div class="col-md-12 mb-3">
-            <div class="card shadow">
-              <div class="card-body">
-                <h2 class="mt-4 mb-4">Photo Gallery</h2>
-                <div class="container">
-                  <div class="row justify-content-center">
-                    <div class="card shadow col-md-8">
+        <div className="row mb-5">
+          <div className="col-md-12 mb-3">
+            <div className="card shadow">
+              <div className="card-body">
+                <h2 className="mt-4 mb-4">Photo Gallery</h2>
+                <div className="container">
+                  <div className="row justify-content-center">
+                    <div className="card shadow col-md-8">
                       <div
                         id="petPhotoCarousel"
-                        class="carousel slide custom-carousel-height"
+                        className="carousel slide custom-carousel-height"
                       >
-                        <ol class="carousel-indicators">
+                        <ol className="carousel-indicators">
                           <li
                             data-bs-target="#petPhotoCarousel"
                             data-bs-slide-to="0"
-                            class="active"
+                            className="active"
                           ></li>
                           <li
                             data-bs-target="#petPhotoCarousel"
@@ -246,59 +250,62 @@ const PetDetails = () => {
                             data-bs-slide-to="2"
                           ></li>
                         </ol>
-                        <div class="carousel-inner">
-                          <div class="carousel-item active">
+                        <div className="carousel-inner">
+                          <div className="carousel-item active">
                             <img
                               src={image1}
                               alt={`${name} Photo1`}
-                              class="d-block w-100 img-fluid"
+                              className="d-block w-100 img-fluid"
                             />
                           </div>
-                          <div class="carousel-item">
+                          <div className="carousel-item">
                             <img
                               src={image2}
                               alt={`${name} Photo2`}
-                              class="d-block w-100"
+                              className="d-block w-100"
                             />
                           </div>
-                          <div class="carousel-item">
+                          <div className="carousel-item">
                             <img
                               src={image3}
                               alt={`${name} Photo3`}
-                              class="d-block w-100"
+                              className="d-block w-100"
                             />
                           </div>
                         </div>
                         <a
-                          class="carousel-control-prev"
+                          className="carousel-control-prev"
                           href="#petPhotoCarousel"
                           role="button"
                           data-bs-slide="prev"
                         >
                           <span
-                            class="carousel-control-prev-icon"
+                            className="carousel-control-prev-icon"
                             aria-hidden="true"
                           ></span>
-                          <span class="visually-hidden">Previous</span>
+                          <span className="visually-hidden">Previous</span>
                         </a>
                         <a
-                          class="carousel-control-next"
+                          className="carousel-control-next"
                           href="#petPhotoCarousel"
                           role="button"
                           data-bs-slide="next"
                         >
                           <span
-                            class="carousel-control-next-icon"
+                            className="carousel-control-next-icon"
                             aria-hidden="true"
                           ></span>
-                          <span class="visually-hidden">Next</span>
+                          <span className="visually-hidden">Next</span>
                         </a>
                       </div>
                       {userType === "shelter" && (
-  <Link to={`/petupdate/${pk}`} className="btn btn-primary btn-block">
-    Update Pet
-  </Link>
-)}
+                        <Link
+                          to={`/petupdate/${pk}`}
+                          className="btn btn-primary btn-block"
+                        >
+                          Update Pet
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>
